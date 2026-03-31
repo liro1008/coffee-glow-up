@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Coffee Glow Up">
+<title>Coffee Glow Up ☕</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400;1,700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --rose-lightest: #EDD8C8;
+  --rose-light: #D4948A;
+  --rose-mid: #B8706A;
+  --gold: #E8C080;
+  --gold-dark: #C49A4A;
+  --rose-dark: #8A4840;
+  --rose-darkest: #5A2820;
+  --cream: #FDF6F0;
+  --card: #FFF8F4;
+  --text-dark: #3A1A14;
+  --text-mid: #7A4A40;
+  --text-light: #B08070;
+  --green: #6AAA80;
+  --blue: #8AAAC4;
+  --red: #E88A8A;
+  --shadow: rgba(184,112,106,0.15);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--cream);
+  color: var(--text-dark);
+  min-height: 100vh;
+  max-width: 430px;
+  margin: 0 auto;
+  padding-bottom: 90px;
+}
+
+/* HEADER */
+.app-header {
+  background: linear-gradient(135deg, #EDD8C8 0%, #D4948A 30%, #B8706A 60%, #E8C080 100%);
+  padding: 20px 20px 16px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.app-header::before {
+  content: '';
+  position: absolute;
+  top: -30px; right: -30px;
+  width: 120px; height: 120px;
+  background: rgba(232,192,128,0.3);
+  border-radius: 50%;
+}
+.app-header::after {
+  content: '';
+  position: absolute;
+  bottom: -20px; left: -20px;
+  width: 80px; height: 80px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 50%;
+}
+.app-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 26px;
+  color: white;
+  text-shadow: 0 2px 8px rgba(90,40,32,0.3);
+  position: relative; z-index: 1;
+}
+.app-header p {
+  font-size: 12px;
+  color: rgba(255,255,255,0.85);
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  position: relative; z-index: 1;
+  margin-top: 2px;
+}
+
+/* NAV */
+.bottom-nav {
+  position: fixed;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 100%; max-width: 430px;
+  background: white;
+  border-top: 1px solid var(--rose-lightest);
+  display: flex;
+  box-shadow: 0 -4px 20px var(--shadow);
+  z-index: 100;
+}
+.nav-btn {
+  flex: 1;
+  padding: 10px 4px 12px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-light);
+  transition: all 0.2s;
+}
+.nav-btn.active { color: var(--rose-mid); }
+.nav-btn .icon { font-size: 22px; }
+
+/* SCREENS */
+.screen { display: none; padding: 16px; }
+.screen.active { display: block; }
+
+/* CARDS */
+.card {
+  background: var(--card);
+  border-radius: 18px;
+  padding: 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 4px 16px var(--shadow);
+  border: 1px solid rgba(232,192,128,0.2);
+}
+.card-title {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--rose-dark);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* DATE NAV */
+.date-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  border-radius: 14px;
+  padding: 10px 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 2px 10px var(--shadow);
+  border: 1px solid var(--rose-lightest);
+}
+.date-nav button {
+  background: var(--rose-mid);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  width: 36px; height: 36px;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.date-display {
+  text-align: center;
+}
+.date-display .day { font-size: 18px; font-weight: 800; color: var(--rose-dark); }
+.date-display .date { font-size: 12px; color: var(--text-light); font-weight: 600; }
+
+/* DRINK LIST */
+.drink-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.2s;
+  background: white;
+}
+.drink-item:active { transform: scale(0.98); }
+.drink-item.selected {
+  border-color: var(--gold);
+  background: linear-gradient(135deg, #FFF8F0, #FDF3E8);
+  box-shadow: 0 2px 12px rgba(232,192,128,0.4);
+}
+.drink-rank {
+  font-size: 11px;
+  font-weight: 800;
+  color: white;
+  border-radius: 8px;
+  padding: 3px 7px;
+  min-width: 28px;
+  text-align: center;
+}
+.drink-info { flex: 1; }
+.drink-name { font-size: 13px; font-weight: 700; color: var(--text-dark); }
+.drink-stats { font-size: 11px; color: var(--text-light); margin-top: 1px; }
+.drink-tag {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+}
+
+.tag-best { background: #E8F8F0; color: #4A8A60; }
+.tag-great { background: #EAF2F8; color: #4A7A94; }
+.tag-good { background: #FEF8EC; color: #8A6A20; }
+.tag-avoid { background: #FEF0F0; color: #A04040; }
+.tag-other { background: #F8F0F8; color: #7A507A; }
+
+.rank-best { background: var(--green); }
+.rank-great { background: var(--blue); }
+.rank-good { background: var(--gold-dark); }
+.rank-avoid { background: var(--red); }
+.rank-other { background: #B090B0; }
+
+/* MOOD */
+.mood-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.mood-btn {
+  padding: 10px;
+  border-radius: 12px;
+  border: 2px solid var(--rose-lightest);
+  background: white;
+  cursor: pointer;
+  text-align: center;
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-mid);
+  transition: all 0.2s;
+}
+.mood-btn.selected {
+  border-color: var(--rose-mid);
+  background: linear-gradient(135deg, var(--rose-lightest), white);
+  color: var(--rose-dark);
+}
+.mood-emoji { font-size: 20px; display: block; margin-bottom: 3px; }
+
+/* NOTES */
+.notes-input {
+  width: 100%;
+  border: 2px solid var(--rose-lightest);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  color: var(--text-dark);
+  background: white;
+  resize: none;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.notes-input:focus { border-color: var(--rose-mid); }
+
+/* SAVINGS CARD */
+.savings-card {
+  background: linear-gradient(135deg, var(--rose-dark), var(--rose-darkest));
+  border-radius: 18px;
+  padding: 16px;
+  color: white;
+  margin-bottom: 14px;
+  position: relative;
+  overflow: hidden;
+}
+.savings-card::after {
+  content: '☕';
+  position: absolute;
+  right: 12px; top: 8px;
+  font-size: 48px;
+  opacity: 0.15;
+}
+.savings-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  margin-top: 10px;
+}
+.savings-stat {
+  text-align: center;
+  background: rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 8px 4px;
+}
+.savings-stat .val { font-size: 18px; font-weight: 800; color: var(--gold); }
+.savings-stat .lbl { font-size: 10px; opacity: 0.85; font-weight: 600; margin-top: 1px; }
+.savings-title { font-family: 'Playfair Display', serif; font-style: italic; font-size: 15px; opacity: 0.9; }
+
+/* LOG BUTTON */
+.log-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--rose-mid), var(--rose-dark));
+  color: white;
+  font-family: 'Nunito', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(184,112,106,0.4);
+  transition: all 0.2s;
+  margin-bottom: 14px;
+  letter-spacing: 0.5px;
+}
+.log-btn:active { transform: scale(0.98); }
+
+/* STREAKS */
+.streak-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.streak-card {
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  border-radius: 16px;
+  padding: 14px 12px;
+  text-align: center;
+  color: white;
+}
+.streak-card.rose-streak {
+  background: linear-gradient(135deg, var(--rose-light), var(--rose-mid));
+}
+.streak-num { font-size: 32px; font-weight: 800; line-height: 1; }
+.streak-label { font-size: 11px; font-weight: 700; opacity: 0.9; margin-top: 3px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* CALENDAR */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-top: 8px;
+}
+.cal-header {
+  text-align: center;
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--text-light);
+  padding: 4px 0;
+}
+.cal-day {
+  aspect-ratio: 1;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  background: #F0E8E4;
+  color: var(--text-light);
+  position: relative;
+}
+.cal-day.has-entry { cursor: pointer; }
+.cal-day.no-coffee { background: var(--green); color: white; }
+.cal-day.great { background: var(--blue); color: white; }
+.cal-day.good { background: var(--gold-dark); color: white; }
+.cal-day.avoid { background: var(--red); color: white; }
+.cal-day.today-marker { outline: 2px solid var(--rose-mid); outline-offset: 1px; }
+
+/* GOAL BAR */
+.goal-bar-wrap { margin-top: 10px; }
+.goal-bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-mid);
+  margin-bottom: 6px;
+}
+.goal-bar-bg {
+  height: 12px;
+  background: #F0E8E4;
+  border-radius: 20px;
+  overflow: hidden;
+}
+.goal-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--rose-mid), var(--gold));
+  border-radius: 20px;
+  transition: width 0.6s ease;
+}
+
+/* WEIGHT */
+.weight-input-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.weight-input {
+  flex: 1;
+  border: 2px solid var(--rose-lightest);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-dark);
+  background: white;
+  outline: none;
+}
+.weight-input:focus { border-color: var(--rose-mid); }
+.add-btn {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--rose-mid), var(--rose-dark));
+  color: white;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+/* CHART */
+.chart-wrap {
+  width: 100%;
+  height: 200px;
+  position: relative;
+  margin: 12px 0;
+}
+canvas { width: 100% !important; height: 100% !important; }
+
+/* MILESTONES */
+.milestone {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  margin-bottom: 6px;
+  background: white;
+  border: 1.5px solid var(--rose-lightest);
+}
+.milestone.reached {
+  background: linear-gradient(135deg, #E8F8F0, #F0FFF8);
+  border-color: var(--green);
+}
+.milestone.bday-goal {
+  background: linear-gradient(135deg, #FFF8E8, #FEF3D0);
+  border-color: var(--gold);
+}
+.milestone-icon { font-size: 20px; }
+.milestone-text { flex: 1; }
+.milestone-name { font-size: 13px; font-weight: 700; color: var(--text-dark); }
+.milestone-sub { font-size: 11px; color: var(--text-light); }
+.milestone-check { font-size: 18px; }
+
+/* STATS */
+.hero-stat {
+  text-align: center;
+  background: linear-gradient(135deg, var(--rose-mid), var(--rose-dark));
+  border-radius: 18px;
+  padding: 20px;
+  color: white;
+  margin-bottom: 14px;
+}
+.hero-stat .big-num {
+  font-size: 52px;
+  font-weight: 800;
+  color: var(--gold);
+  line-height: 1;
+}
+.hero-stat .big-label {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 16px;
+  opacity: 0.9;
+  margin-top: 4px;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.stat-tile {
+  background: var(--card);
+  border-radius: 14px;
+  padding: 14px 12px;
+  text-align: center;
+  border: 1px solid rgba(232,192,128,0.3);
+  box-shadow: 0 2px 10px var(--shadow);
+}
+.stat-tile .val { font-size: 24px; font-weight: 800; color: var(--rose-mid); }
+.stat-tile .lbl { font-size: 11px; color: var(--text-light); font-weight: 600; margin-top: 2px; }
+
+/* INSIGHTS */
+.insight {
+  background: white;
+  border-left: 4px solid var(--gold);
+  border-radius: 0 12px 12px 0;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: var(--text-mid);
+  font-weight: 600;
+}
+
+/* REMINDER */
+.reminder-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+.toggle-wrap { display: flex; align-items: center; gap: 10px; }
+.toggle {
+  width: 44px; height: 24px;
+  background: #DDD;
+  border-radius: 12px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.toggle.on { background: var(--rose-mid); }
+.toggle::after {
+  content: '';
+  position: absolute;
+  top: 2px; left: 2px;
+  width: 20px; height: 20px;
+  background: white;
+  border-radius: 50%;
+  transition: left 0.2s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+.toggle.on::after { left: 22px; }
+.time-input {
+  border: 2px solid var(--rose-lightest);
+  border-radius: 10px;
+  padding: 6px 10px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-dark);
+  background: white;
+  outline: none;
+}
+
+/* CONFETTI */
+.confetti-container {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 999;
+}
+.confetti-piece {
+  position: absolute;
+  width: 10px; height: 10px;
+  border-radius: 2px;
+  animation: confettiFall 2.5s ease forwards;
+}
+@keyframes confettiFall {
+  0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+/* TOAST */
+.toast {
+  position: fixed;
+  top: 80px; left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  background: linear-gradient(135deg, var(--rose-dark), var(--rose-darkest));
+  color: white;
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-weight: 800;
+  font-size: 14px;
+  box-shadow: 0 8px 24px rgba(90,40,32,0.3);
+  opacity: 0;
+  transition: all 0.3s;
+  z-index: 1000;
+  text-align: center;
+  max-width: 320px;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--rose-dark);
+  margin-bottom: 14px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--rose-lightest);
+}
+
+.month-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.month-nav button {
+  background: var(--rose-lightest);
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 16px;
+  cursor: pointer;
+  color: var(--rose-dark);
+}
+.month-nav .month-label {
+  font-weight: 800;
+  font-size: 15px;
+  color: var(--rose-dark);
+}
+
+.bday-projection {
+  background: linear-gradient(135deg, #FFF8E8, #FEF3D0);
+  border: 2px solid var(--gold);
+  border-radius: 14px;
+  padding: 14px;
+  text-align: center;
+  margin-bottom: 14px;
+}
+.bday-projection .proj-num {
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--gold-dark);
+}
+.bday-projection .proj-label {
+  font-size: 13px;
+  color: var(--text-mid);
+  font-weight: 600;
+}
+.bday-projection .proj-sub {
+  font-size: 11px;
+  color: var(--text-light);
+  margin-top: 4px;
+}
+
+/* Legend */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-mid);
+}
+.legend-dot {
+  width: 12px; height: 12px;
+  border-radius: 3px;
+}
+</style>
+</head>
+<body>
+
+<div class="app-header">
+  <h1>☕ Coffee Glow Up</h1>
+  <p>Habla · Lucha · Sana</p>
+</div>
+
+<!-- SCREENS -->
+
+<!-- TODAY -->
+<div class="screen active" id="screen-today">
+
+  <div class="date-nav">
+    <button onclick="changeDay(-1)">‹</button>
+    <div class="date-display">
+      <div class="day" id="day-label">Today</div>
+      <div class="date" id="date-label"></div>
+    </div>
+    <button onclick="changeDay(1)">›</button>
+  </div>
+
+  <div class="card">
+    <div class="card-title">☕ What did you drink?</div>
+    <div id="drink-list"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">💫 How are you feeling?</div>
+    <div class="mood-grid">
+      <button class="mood-btn" onclick="selectMood('strong')" id="mood-strong"><span class="mood-emoji">💪</span>Strong</button>
+      <button class="mood-btn" onclick="selectMood('good')" id="mood-good"><span class="mood-emoji">😊</span>Good</button>
+      <button class="mood-btn" onclick="selectMood('tempted')" id="mood-tempted"><span class="mood-emoji">😤</span>Tempted</button>
+      <button class="mood-btn" onclick="selectMood('hard')" id="mood-hard"><span class="mood-emoji">😔</span>Hard Day</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📝 Notes (optional)</div>
+    <textarea class="notes-input" id="notes-input" rows="3" placeholder="How'd it go? What helped?"></textarea>
+  </div>
+
+  <button class="log-btn" onclick="saveEntry()">✨ Save Today's Entry</button>
+
+  <div class="savings-card" id="savings-card">
+    <div class="savings-title">vs. Large Frappe (660 cal)</div>
+    <div class="savings-grid">
+      <div class="savings-stat"><div class="val" id="save-cal">—</div><div class="lbl">Cal Saved</div></div>
+      <div class="savings-stat"><div class="val" id="save-sugar">—</div><div class="lbl">Sugar Saved</div></div>
+      <div class="savings-stat"><div class="val" id="save-money">—</div><div class="lbl">$ Saved</div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- HISTORY -->
+<div class="screen" id="screen-history">
+
+  <div class="streak-row">
+    <div class="streak-card rose-streak">
+      <div class="streak-num" id="streak-nofrappe">0</div>
+      <div class="streak-label">🚫 No Frappe Streak</div>
+    </div>
+    <div class="streak-card">
+      <div class="streak-num" id="streak-great">0</div>
+      <div class="streak-label">⭐ Great Swap Streak</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="month-nav">
+      <button onclick="changeMonth(-1)">‹</button>
+      <div class="month-label" id="month-label"></div>
+      <button onclick="changeMonth(1)">›</button>
+    </div>
+    <div class="calendar-grid" id="calendar-grid">
+      <div class="cal-header">Su</div>
+      <div class="cal-header">Mo</div>
+      <div class="cal-header">Tu</div>
+      <div class="cal-header">We</div>
+      <div class="cal-header">Th</div>
+      <div class="cal-header">Fr</div>
+      <div class="cal-header">Sa</div>
+    </div>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>No Coffee / Best</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div>Great Swap</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--gold-dark)"></div>Good Swap</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div>Had Frappe</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🎯 Monthly Frappe-Free Goal</div>
+    <div class="goal-bar-wrap">
+      <div class="goal-bar-label">
+        <span id="goal-count">0 / 20 days</span>
+        <span id="goal-pct">0%</span>
+      </div>
+      <div class="goal-bar-bg"><div class="goal-bar-fill" id="goal-bar" style="width:0%"></div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- WEIGHT -->
+<div class="screen" id="screen-weight">
+
+  <div class="bday-projection">
+    <div class="proj-label">🎂 Birthday Goal — October 8, 2026</div>
+    <div class="proj-num" id="proj-weight">—</div>
+    <div class="proj-sub" id="proj-sub">Log your weight to see your projection</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">⚖️ Log Your Weight</div>
+    <div class="date-nav" style="margin-bottom:12px;">
+      <button onclick="changeWeightDay(-1)">‹</button>
+      <div class="date-display">
+        <div class="day" id="weight-day-label">Today</div>
+        <div class="date" id="weight-date-label"></div>
+      </div>
+      <button onclick="changeWeightDay(1)">›</button>
+    </div>
+    <div class="weight-input-row">
+      <input type="number" class="weight-input" id="weight-input" placeholder="244.5" step="0.1">
+      <button class="add-btn" onclick="logWeight()">Add</button>
+    </div>
+    <div class="chart-wrap">
+      <canvas id="weight-chart"></canvas>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🏆 Milestones</div>
+    <div id="milestones-list"></div>
+  </div>
+
+</div>
+
+<!-- STATS -->
+<div class="screen" id="screen-stats">
+
+  <div class="hero-stat">
+    <div class="big-num" id="total-cal-saved">0</div>
+    <div class="big-label">Total Calories Saved ☕</div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-tile"><div class="val" id="stat-lbs">0</div><div class="lbl">lbs of fat saved*</div></div>
+    <div class="stat-tile"><div class="val" id="stat-money">$0</div><div class="lbl">money saved</div></div>
+    <div class="stat-tile"><div class="val" id="stat-streak">0</div><div class="lbl">no-frappe streak</div></div>
+    <div class="stat-tile"><div class="val" id="stat-sugar">0g</div><div class="lbl">sugar avoided</div></div>
+    <div class="stat-tile"><div class="val" id="stat-days">0</div><div class="lbl">frappe-free days</div></div>
+    <div class="stat-tile"><div class="val" id="stat-fave">—</div><div class="lbl">fave swap</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">💡 Your Insights</div>
+    <div id="insights-list"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">⏰ Afternoon Reminder</div>
+    <div class="reminder-row">
+      <span style="font-size:13px; font-weight:700; color:var(--text-mid)">Reminder On</span>
+      <div class="toggle-wrap">
+        <input type="time" class="time-input" id="reminder-time" value="14:00">
+        <div class="toggle" id="reminder-toggle" onclick="toggleReminder()"></div>
+      </div>
+    </div>
+    <p style="font-size:11px; color:var(--text-light); margin-top:6px;">Works when app is open in Safari on GitHub Pages ✓</p>
+  </div>
+
+  <p style="font-size:10px; color:var(--text-light); text-align:center; padding:8px 0;">*3,500 cal ≈ 1 lb of fat</p>
+
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button class="nav-btn active" onclick="showScreen('today')" id="nav-today">
+    <span class="icon">☕</span>Today
+  </button>
+  <button class="nav-btn" onclick="showScreen('history')" id="nav-history">
+    <span class="icon">📅</span>History
+  </button>
+  <button class="nav-btn" onclick="showScreen('weight')" id="nav-weight">
+    <span class="icon">⚖️</span>Weight
+  </button>
+  <button class="nav-btn" onclick="showScreen('stats')" id="nav-stats">
+    <span class="icon">✨</span>Stats
+  </button>
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="confetti-container" id="confetti"></div>
+
+<script>
+// ============ DATA ============
+const DRINKS = [
+  { id:0, name:"No Coffee Today", cal:0, sugar:0, price:0, tag:"best", label:"#1 Best", rank:"best" },
+  { id:1, name:"McD's SF Vanilla Iced Coffee (Large)", cal:150, sugar:2, price:2.49, tag:"best", label:"Best", rank:"best" },
+  { id:2, name:"Starbucks Brown Sugar Espresso + Mocha Drizzle (Grande)", cal:130, sugar:18, price:6.45, tag:"great", label:"Great", rank:"great" },
+  { id:3, name:"Starbucks Brown Sugar Espresso + Mocha Drizzle (Venti)", cal:220, sugar:34, price:6.95, tag:"great", label:"Great", rank:"great" },
+  { id:4, name:"Jack in the Box Iced Mocha (Regular 16oz)", cal:190, sugar:32, price:3.49, tag:"good", label:"Good", rank:"good" },
+  { id:5, name:"Jack in the Box Iced Mocha (Large 24oz)", cal:340, sugar:49, price:3.99, tag:"good", label:"Good", rank:"good" },
+  { id:6, name:"McDonald's Mocha Frappe (Small)", cal:340, sugar:45, price:3.49, tag:"avoid", label:"Avoid", rank:"avoid" },
+  { id:7, name:"McDonald's Mocha Frappe (Medium)", cal:510, sugar:68, price:3.99, tag:"avoid", label:"Avoid", rank:"avoid" },
+  { id:8, name:"McDonald's Mocha Frappe (Large)", cal:660, sugar:89, price:4.49, tag:"avoid", label:"Avoid", rank:"avoid" },
+  { id:9, name:"Other", cal:null, sugar:null, price:0, tag:"other", label:"Other", rank:"other" },
+];
+
+const LARGE_FRAPPE = { cal:660, sugar:89, price:4.49 };
+const MILESTONES = [
+  { w:230, label:"230 lbs", sub:"First big drop 💪", icon:"🌟" },
+  { w:220, label:"220 lbs — Birthday Goal 🎂", sub:"Gladys turns 40 looking amazing", icon:"🎂", bday:true },
+  { w:210, label:"210 lbs", sub:"Getting there!", icon:"🔥" },
+  { w:200, label:"Under 200 lbs", sub:"Onederland!", icon:"💎" },
+  { w:180, label:"180 lbs — Green Shirt Era 💚", sub:"That green shirt moment", icon:"💚" },
+  { w:150, label:"150 lbs — Teen Era 🏆", sub:"Ultimate goal reached!", icon:"🏆" },
+];
+
+let state = {
+  entries: {},      // { "YYYY-MM-DD": { drinkId, mood, notes, customCal, customSugar } }
+  weights: [],      // [ { date:"YYYY-MM-DD", w:244.5 } ]
+  reminderOn: false,
+  reminderTime: "14:00",
+};
+
+function saveState() {
+  localStorage.setItem('coffeeGlowUp', JSON.stringify(state));
+}
+function loadState() {
+  const s = localStorage.getItem('coffeeGlowUp');
+  if (s) state = JSON.parse(s);
+}
+
+// ============ DATE UTILS ============
+let currentDate = new Date();
+currentDate.setHours(0,0,0,0);
+let calMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+
+function dateKey(d) {
+  return d.toISOString().split('T')[0];
+}
+function today() {
+  const t = new Date(); t.setHours(0,0,0,0); return t;
+}
+
+function changeDay(dir) {
+  currentDate.setDate(currentDate.getDate() + dir);
+  renderToday();
+}
+
+function formatDateLabel(d) {
+  const t = today();
+  if (dateKey(d) === dateKey(t)) return "Today";
+  const y = new Date(t); y.setDate(t.getDate() - 1);
+  if (dateKey(d) === dateKey(y)) return "Yesterday";
+  return d.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' });
+}
+
+// ============ TODAY SCREEN ============
+let selectedDrinkId = null;
+let selectedMood = null;
+
+function renderToday() {
+  document.getElementById('day-label').textContent = formatDateLabel(currentDate);
+  document.getElementById('date-label').textContent = currentDate.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+
+  const key = dateKey(currentDate);
+  const entry = state.entries[key] || {};
+
+  selectedDrinkId = entry.drinkId !== undefined ? entry.drinkId : null;
+  selectedMood = entry.mood || null;
+  document.getElementById('notes-input').value = entry.notes || '';
+
+  renderDrinkList();
+  renderMoodBtns();
+  renderSavings();
+}
+
+function renderDrinkList() {
+  const key = dateKey(currentDate);
+  const entry = state.entries[key] || {};
+  let html = DRINKS.map(d => `
+    <div class="drink-item ${selectedDrinkId === d.id ? 'selected' : ''}" onclick="selectDrink(${d.id})">
+      <span class="drink-rank rank-${d.rank}">#${d.id+1}</span>
+      <div class="drink-info">
+        <div class="drink-name">${d.name}</div>
+        <div class="drink-stats">${d.cal !== null ? d.cal+'cal · '+d.sugar+'g sugar' : 'Tap to add details'}</div>
+      </div>
+      <span class="drink-tag tag-${d.tag}">${d.label}</span>
+    </div>
+  `).join('');
+
+  // Custom "Other" fields
+  if (selectedDrinkId === 9) {
+    const savedCustom = entry.customDesc || '';
+    const savedCal = entry.customCal || '';
+    const savedSugar = entry.customSugar || '';
+    html += `
+      <div style="background:linear-gradient(135deg,#FFF8F0,#FEF3E8);border:2px solid var(--gold);border-radius:14px;padding:14px;margin-top:8px;">
+        <div style="font-size:13px;font-weight:800;color:var(--rose-dark);margin-bottom:10px;">✏️ What did you drink?</div>
+        <input id="custom-desc" type="text" placeholder="e.g. Horchata latte, home brew..." value="${savedCustom}"
+          style="width:100%;border:2px solid var(--rose-lightest);border-radius:10px;padding:9px 12px;font-family:'Nunito',sans-serif;font-size:14px;color:var(--text-dark);background:white;outline:none;margin-bottom:8px;">
+        <div style="display:flex;gap:8px;">
+          <div style="flex:1;">
+            <div style="font-size:11px;font-weight:700;color:var(--text-light);margin-bottom:4px;">Calories (optional)</div>
+            <input id="custom-cal" type="number" placeholder="e.g. 200" value="${savedCal}"
+              style="width:100%;border:2px solid var(--rose-lightest);border-radius:10px;padding:8px 10px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;color:var(--text-dark);background:white;outline:none;">
+          </div>
+          <div style="flex:1;">
+            <div style="font-size:11px;font-weight:700;color:var(--text-light);margin-bottom:4px;">Sugar in grams (optional)</div>
+            <input id="custom-sugar" type="number" placeholder="e.g. 25" value="${savedSugar}"
+              style="width:100%;border:2px solid var(--rose-lightest);border-radius:10px;padding:8px 10px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;color:var(--text-dark);background:white;outline:none;">
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  document.getElementById('drink-list').innerHTML = html;
+}
+
+function selectDrink(id) {
+  selectedDrinkId = id;
+  renderDrinkList();
+  renderSavings();
+}
+
+function selectMood(m) {
+  selectedMood = m;
+  renderMoodBtns();
+}
+
+function renderMoodBtns() {
+  ['strong','good','tempted','hard'].forEach(m => {
+    const btn = document.getElementById('mood-'+m);
+    btn.classList.toggle('selected', selectedMood === m);
+  });
+}
+
+function renderSavings() {
+  if (selectedDrinkId === null) return;
+  const d = DRINKS[selectedDrinkId];
+  if (d.cal === null) { document.getElementById('save-cal').textContent='—'; return; }
+  const calSaved = Math.max(0, LARGE_FRAPPE.cal - d.cal);
+  const sugarSaved = Math.max(0, LARGE_FRAPPE.sugar - d.sugar);
+  const moneySaved = Math.max(0, LARGE_FRAPPE.price - d.price);
+  document.getElementById('save-cal').textContent = calSaved;
+  document.getElementById('save-sugar').textContent = sugarSaved+'g';
+  document.getElementById('save-money').textContent = '$'+moneySaved.toFixed(2);
+}
+
+function saveEntry() {
+  if (selectedDrinkId === null) { showToast("Pick a drink first! ☕"); return; }
+  const key = dateKey(currentDate);
+  const entryData = {
+    drinkId: selectedDrinkId,
+    mood: selectedMood,
+    notes: document.getElementById('notes-input').value,
+  };
+  if (selectedDrinkId === 9) {
+    entryData.customDesc = (document.getElementById('custom-desc')?.value || '').trim();
+    entryData.customCal = document.getElementById('custom-cal')?.value || '';
+    entryData.customSugar = document.getElementById('custom-sugar')?.value || '';
+  }
+  state.entries[key] = entryData;
+  saveState();
+
+  const drink = DRINKS[selectedDrinkId];
+  if (drink.rank !== 'avoid') {
+    launchConfetti();
+    showToast("Logged! You're crushing it 🌹✨");
+  } else {
+    showToast("Logged. Tomorrow's a new day 💛");
+  }
+
+  renderHistory();
+  renderStats();
+}
+
+// ============ HISTORY ============
+function changeMonth(dir) {
+  calMonth.setMonth(calMonth.getMonth() + dir);
+  renderHistory();
+}
+
+function renderHistory() {
+  // streaks
+  const streaks = calcStreaks();
+  document.getElementById('streak-nofrappe').textContent = streaks.noFrappe;
+  document.getElementById('streak-great').textContent = streaks.great;
+
+  // calendar
+  const year = calMonth.getFullYear();
+  const month = calMonth.getMonth();
+  document.getElementById('month-label').textContent = calMonth.toLocaleDateString('en-US',{month:'long',year:'numeric'});
+
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month+1, 0).getDate();
+  const todayKey = dateKey(today());
+
+  let html = `
+    <div class="cal-header">Su</div><div class="cal-header">Mo</div>
+    <div class="cal-header">Tu</div><div class="cal-header">We</div>
+    <div class="cal-header">Th</div><div class="cal-header">Fr</div>
+    <div class="cal-header">Sa</div>
+  `;
+
+  for (let i=0; i<firstDay; i++) html += '<div></div>';
+
+  for (let day=1; day<=daysInMonth; day++) {
+    const d = new Date(year, month, day);
+    const key = dateKey(d);
+    const entry = state.entries[key];
+    let cls = '';
+    if (entry) {
+      const drink = DRINKS[entry.drinkId];
+      if (drink.rank === 'best') cls = 'no-coffee has-entry';
+      else if (drink.rank === 'great') cls = 'great has-entry';
+      else if (drink.rank === 'good') cls = 'good has-entry';
+      else if (drink.rank === 'avoid') cls = 'avoid has-entry';
+    }
+    if (key === todayKey) cls += ' today-marker';
+    html += `<div class="cal-day ${cls}">${day}</div>`;
+  }
+
+  document.getElementById('calendar-grid').innerHTML = html;
+
+  // goal bar
+  const frappe_free = Object.entries(state.entries)
+    .filter(([k, e]) => {
+      const d = new Date(k);
+      return d.getFullYear()===year && d.getMonth()===month && DRINKS[e.drinkId].rank !== 'avoid';
+    }).length;
+  const pct = Math.min(100, Math.round(frappe_free / 20 * 100));
+  document.getElementById('goal-count').textContent = frappe_free + ' / 20 days';
+  document.getElementById('goal-pct').textContent = pct + '%';
+  document.getElementById('goal-bar').style.width = pct + '%';
+}
+
+function calcStreaks() {
+  const keys = Object.keys(state.entries).sort().reverse();
+  let noFrappe = 0, great = 0;
+  let prevDate = null;
+
+  for (const key of keys) {
+    const d = new Date(key);
+    const entry = state.entries[key];
+    const drink = DRINKS[entry.drinkId];
+
+    if (prevDate) {
+      const diff = (prevDate - d) / 86400000;
+      if (diff > 1) break;
+    }
+
+    if (drink.rank !== 'avoid') noFrappe++;
+    else break;
+    prevDate = d;
+  }
+
+  prevDate = null;
+  for (const key of keys) {
+    const d = new Date(key);
+    const entry = state.entries[key];
+    const drink = DRINKS[entry.drinkId];
+
+    if (prevDate) {
+      const diff = (prevDate - d) / 86400000;
+      if (diff > 1) break;
+    }
+
+    if (drink.rank === 'best' || drink.rank === 'great') great++;
+    else break;
+    prevDate = d;
+  }
+
+  return { noFrappe, great };
+}
+
+// ============ WEIGHT ============
+let weightDate = new Date();
+weightDate.setHours(0,0,0,0);
+
+function changeWeightDay(dir) {
+  weightDate.setDate(weightDate.getDate() + dir);
+  // Don't allow future dates
+  if (weightDate > today()) weightDate = today();
+  renderWeightDateNav();
+}
+
+function renderWeightDateNav() {
+  document.getElementById('weight-day-label').textContent = formatDateLabel(weightDate);
+  document.getElementById('weight-date-label').textContent = weightDate.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+  // Pre-fill if there's already a log for that date
+  const key = dateKey(weightDate);
+  const existing = state.weights.find(w => w.date === key);
+  document.getElementById('weight-input').value = existing ? existing.w : '';
+  document.getElementById('weight-input').placeholder = existing ? existing.w : '244.5';
+}
+
+function logWeight() {
+  const val = parseFloat(document.getElementById('weight-input').value);
+  if (isNaN(val) || val < 50 || val > 500) { showToast("Enter a valid weight 😊"); return; }
+  const key = dateKey(weightDate);
+  state.weights = state.weights.filter(w => w.date !== key);
+  state.weights.push({ date: key, w: val });
+  state.weights.sort((a,b) => a.date.localeCompare(b.date));
+  saveState();
+  document.getElementById('weight-input').value = '';
+  renderWeight();
+  showToast(`Weight logged for ${formatDateLabel(weightDate)}! 💪`);
+}
+
+function renderWeight() {
+  renderWeightDateNav();
+  renderBdayProjection();
+  renderWeightChart();
+  renderMilestones();
+}
+
+function renderBdayProjection() {
+  const proj = document.getElementById('proj-weight');
+  const sub = document.getElementById('proj-sub');
+
+  if (state.weights.length === 0) {
+    proj.textContent = '—';
+    sub.textContent = 'Log your weight to see your projection';
+    return;
+  }
+
+  const latest = state.weights[state.weights.length - 1];
+  const latestW = latest.w;
+  const latestDate = new Date(latest.date);
+  const bday = new Date('2026-10-08');
+  const daysLeft = Math.max(0, Math.round((bday - latestDate) / 86400000));
+  const projected = latestW - (daysLeft * 0.75 / 7);
+  const projRounded = Math.max(0, Math.round(projected * 10) / 10);
+
+  proj.textContent = projRounded + ' lbs';
+
+  if (projRounded <= 220) {
+    sub.textContent = `🎉 On track to hit your 220 lb birthday goal! ${daysLeft} days to go!`;
+  } else {
+    const gap = Math.round((projRounded - 220) * 10) / 10;
+    sub.textContent = `${daysLeft} days left · ${gap} lbs above your 220 goal — keep going!`;
+  }
+}
+
+function renderWeightChart() {
+  const canvas = document.getElementById('weight-chart');
+  const ctx = canvas.getContext('2d');
+  canvas.width = canvas.offsetWidth * 2;
+  canvas.height = canvas.offsetHeight * 2;
+  ctx.scale(2,2);
+
+  const W = canvas.offsetWidth / 2;
+  const H = canvas.offsetHeight / 2;
+  ctx.clearRect(0,0,W,H);
+
+  if (state.weights.length < 2) {
+    ctx.fillStyle = '#B08070';
+    ctx.font = 'bold 14px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('Log 2+ weights to see your chart 📈', W/2, H/2);
+    return;
+  }
+
+  const weights = state.weights.map(w => w.w);
+  const minW = Math.min(...weights) - 5;
+  const maxW = Math.max(...weights) + 5;
+  const pad = { t:10, r:10, b:20, l:40 };
+  const cW = W - pad.l - pad.r;
+  const cH = H - pad.t - pad.b;
+
+  const xScale = i => pad.l + (i / (weights.length-1)) * cW;
+  const yScale = w => pad.t + cH - ((w - minW) / (maxW - minW)) * cH;
+
+  // grid lines
+  ctx.strokeStyle = '#F0E8E4';
+  ctx.lineWidth = 1;
+  for (let i=0; i<=4; i++) {
+    const y = pad.t + (cH / 4) * i;
+    ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(pad.l+cW, y); ctx.stroke();
+    const w = maxW - ((maxW - minW) / 4) * i;
+    ctx.fillStyle = '#B08070'; ctx.font = '500 9px Nunito'; ctx.textAlign = 'right';
+    ctx.fillText(Math.round(w), pad.l - 4, y + 4);
+  }
+
+  // gradient fill
+  const grad = ctx.createLinearGradient(0, pad.t, 0, pad.t+cH);
+  grad.addColorStop(0, 'rgba(184,112,106,0.3)');
+  grad.addColorStop(1, 'rgba(184,112,106,0)');
+  ctx.beginPath();
+  ctx.moveTo(xScale(0), yScale(weights[0]));
+  weights.forEach((w,i) => ctx.lineTo(xScale(i), yScale(w)));
+  ctx.lineTo(xScale(weights.length-1), pad.t+cH);
+  ctx.lineTo(xScale(0), pad.t+cH);
+  ctx.closePath();
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  // line
+  ctx.beginPath();
+  ctx.moveTo(xScale(0), yScale(weights[0]));
+  weights.forEach((w,i) => ctx.lineTo(xScale(i), yScale(w)));
+  ctx.strokeStyle = '#B8706A';
+  ctx.lineWidth = 2.5;
+  ctx.lineJoin = 'round';
+  ctx.stroke();
+
+  // dots
+  weights.forEach((w,i) => {
+    ctx.beginPath();
+    ctx.arc(xScale(i), yScale(w), 4, 0, Math.PI*2);
+    ctx.fillStyle = '#B8706A'; ctx.fill();
+    ctx.fillStyle = 'white'; ctx.beginPath();
+    ctx.arc(xScale(i), yScale(w), 2, 0, Math.PI*2); ctx.fill();
+  });
+}
+
+function renderMilestones() {
+  const latest = state.weights.length > 0 ? state.weights[state.weights.length-1].w : 244.5;
+  const html = MILESTONES.map(m => {
+    const reached = latest <= m.w;
+    const isBday = m.bday;
+    return `
+      <div class="milestone ${reached ? 'reached' : ''} ${isBday ? 'bday-goal' : ''}">
+        <span class="milestone-icon">${m.icon}</span>
+        <div class="milestone-text">
+          <div class="milestone-name">${m.label}</div>
+          <div class="milestone-sub">${m.sub}</div>
+        </div>
+        <span class="milestone-check">${reached ? '✅' : '○'}</span>
+      </div>
+    `;
+  }).join('');
+  document.getElementById('milestones-list').innerHTML = html;
+}
+
+// ============ STATS ============
+function renderStats() {
+  const entries = Object.values(state.entries);
+  let totalCalSaved = 0, totalSugarSaved = 0, totalMoneySaved = 0;
+  let frappe_free = 0;
+  const drinkCount = {};
+
+  entries.forEach(e => {
+    const d = DRINKS[e.drinkId];
+    if (d.cal !== null) {
+      totalCalSaved += Math.max(0, LARGE_FRAPPE.cal - d.cal);
+      totalSugarSaved += Math.max(0, LARGE_FRAPPE.sugar - d.sugar);
+      totalMoneySaved += Math.max(0, LARGE_FRAPPE.price - d.price);
+    }
+    if (d.rank !== 'avoid') frappe_free++;
+    drinkCount[d.id] = (drinkCount[d.id] || 0) + 1;
+  });
+
+  const lbs = (totalCalSaved / 3500).toFixed(1);
+  const streaks = calcStreaks();
+  const faveId = Object.entries(drinkCount).sort((a,b)=>b[1]-a[1])[0]?.[0];
+  const faveDrink = faveId !== undefined ? DRINKS[faveId].name.split('(')[0].trim() : '—';
+
+  document.getElementById('total-cal-saved').textContent = totalCalSaved.toLocaleString();
+  document.getElementById('stat-lbs').textContent = lbs;
+  document.getElementById('stat-money').textContent = '$' + totalMoneySaved.toFixed(2);
+  document.getElementById('stat-streak').textContent = streaks.noFrappe;
+  document.getElementById('stat-sugar').textContent = Math.round(totalSugarSaved) + 'g';
+  document.getElementById('stat-days').textContent = frappe_free;
+  document.getElementById('stat-fave').textContent = faveId !== undefined && DRINKS[faveId].rank !== 'avoid' ? '🌟' : '—';
+
+  // insights
+  const insights = [];
+  if (streaks.noFrappe >= 3) insights.push(`🔥 ${streaks.noFrappe}-day no-frappe streak — you're on fire!`);
+  if (totalCalSaved >= 1000) insights.push(`You've saved ${totalCalSaved.toLocaleString()} calories. That's real progress 💪`);
+  if (totalMoneySaved >= 10) insights.push(`$${totalMoneySaved.toFixed(2)} saved vs daily frappes 💰`);
+  if (frappe_free >= 10) insights.push(`${frappe_free} frappe-free days logged 🌹`);
+  if (insights.length === 0) insights.push('Keep logging — your insights will show up here! ✨');
+
+  document.getElementById('insights-list').innerHTML = insights.map(i => `<div class="insight">${i}</div>`).join('');
+}
+
+// ============ REMINDER ============
+let reminderInterval = null;
+function toggleReminder() {
+  state.reminderOn = !state.reminderOn;
+  document.getElementById('reminder-toggle').classList.toggle('on', state.reminderOn);
+  saveState();
+  if (state.reminderOn) scheduleReminder();
+}
+function scheduleReminder() {
+  if (reminderInterval) clearInterval(reminderInterval);
+  reminderInterval = setInterval(() => {
+    const now = new Date();
+    const t = document.getElementById('reminder-time').value;
+    const [h,m] = t.split(':').map(Number);
+    if (now.getHours()===h && now.getMinutes()===m) {
+      showToast("⏰ Time to log your coffee choice!");
+    }
+  }, 60000);
+}
+
+// ============ NAV ============
+function showScreen(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('screen-'+name).classList.add('active');
+  document.getElementById('nav-'+name).classList.add('active');
+  if (name==='history') renderHistory();
+  if (name==='weight') renderWeight();
+  if (name==='stats') renderStats();
+}
+
+// ============ UI HELPERS ============
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+function launchConfetti() {
+  const container = document.getElementById('confetti');
+  container.innerHTML = '';
+  const colors = ['#B8706A','#E8C080','#D4948A','#EDD8C8','#8A4840'];
+  for (let i=0; i<40; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random()*100+'%';
+    piece.style.top = '-10px';
+    piece.style.background = colors[Math.floor(Math.random()*colors.length)];
+    piece.style.animationDelay = Math.random()*1+'s';
+    piece.style.animationDuration = (2 + Math.random()*1)+'s';
+    piece.style.transform = `rotate(${Math.random()*360}deg)`;
+    container.appendChild(piece);
+  }
+  setTimeout(() => container.innerHTML = '', 4000);
+}
+
+// ============ INIT ============
+loadState();
+renderToday();
+renderHistory();
+renderWeightDateNav();
+
+document.getElementById('reminder-toggle').classList.toggle('on', state.reminderOn);
+document.getElementById('reminder-time').value = state.reminderTime || '14:00';
+if (state.reminderOn) scheduleReminder();
+</script>
+</body>
+</html>
