@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -7,6 +8,114 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Coffee Glow Up">
 <title>Coffee Glow Up ☕</title>
+<script>
+// Generate and inject the app icon as apple-touch-icon
+(function() {
+  const size = 512;
+  const cv = document.createElement('canvas');
+  cv.width = size; cv.height = size;
+  const ctx = cv.getContext('2d');
+  const s = size;
+
+// BG — Gold Glow radial
+const bg = ctx.createRadialGradient(s*0.58,s*0.36,0, s/2,s/2,s*0.75);
+bg.addColorStop(0,’#F2D898’); bg.addColorStop(0.22,’#E8B870’);
+bg.addColorStop(0.48,’#D4948A’); bg.addColorStop(0.72,’#B8706A’);
+bg.addColorStop(1,’#7A3A30’);
+ctx.fillStyle = bg; ctx.fillRect(0,0,s,s);
+
+// Center glow
+const glow = ctx.createRadialGradient(s/2,s/2,0,s/2,s/2,s*0.55);
+glow.addColorStop(0,‘rgba(255,240,200,0.22)’); glow.addColorStop(1,‘rgba(0,0,0,0.10)’);
+ctx.fillStyle = glow; ctx.fillRect(0,0,s,s);
+
+// Outer ring
+ctx.beginPath(); ctx.arc(s/2,s/2,s*0.44,0,Math.PI*2);
+ctx.strokeStyle=‘rgba(255,255,255,0.26)’; ctx.lineWidth=s*0.022; ctx.stroke();
+// Gold arc
+ctx.beginPath(); ctx.arc(s/2,s/2,s*0.44,-Math.PI*0.65,Math.PI*0.05);
+ctx.strokeStyle=‘rgba(240,200,100,0.70)’; ctx.lineWidth=s*0.022; ctx.stroke();
+// Inner ring
+ctx.beginPath(); ctx.arc(s/2,s/2,s*0.31,0,Math.PI*2);
+ctx.strokeStyle=‘rgba(255,255,255,0.16)’; ctx.lineWidth=s*0.014; ctx.stroke();
+
+// Cup
+function drawCup(cx,cy) {
+ctx.save(); ctx.globalAlpha=0.88;
+// Saucer
+ctx.beginPath(); ctx.ellipse(cx,cy+s*0.33,s*0.46,s*0.09,0,0,Math.PI*2);
+const sg=ctx.createLinearGradient(cx,cy+s*0.24,cx,cy+s*0.42);
+sg.addColorStop(0,‘rgba(255,255,255,0.97)’); sg.addColorStop(1,‘rgba(230,210,200,0.85)’);
+ctx.fillStyle=sg; ctx.fill();
+// Cup body
+ctx.beginPath();
+ctx.moveTo(cx-s*0.30,cy-s*0.12); ctx.lineTo(cx+s*0.30,cy-s*0.12);
+ctx.lineTo(cx+s*0.24,cy+s*0.28);
+ctx.quadraticCurveTo(cx,cy+s*0.34,cx-s*0.24,cy+s*0.28); ctx.closePath();
+const cg=ctx.createLinearGradient(cx-s*0.30,cy,cx+s*0.30,cy);
+cg.addColorStop(0,‘rgba(240,225,215,0.95)’); cg.addColorStop(0.4,‘rgba(255,252,248,0.98)’);
+cg.addColorStop(0.75,‘rgba(245,235,228,0.95)’); cg.addColorStop(1,‘rgba(225,210,200,0.90)’);
+ctx.fillStyle=cg; ctx.fill();
+// Rim
+ctx.beginPath(); ctx.ellipse(cx,cy-s*0.12,s*0.30,s*0.065,0,0,Math.PI*2);
+ctx.fillStyle=‘rgba(255,255,255,0.97)’; ctx.fill();
+// Coffee
+ctx.beginPath(); ctx.ellipse(cx,cy-s*0.12,s*0.255,s*0.052,0,0,Math.PI*2);
+const kg=ctx.createRadialGradient(cx-s*0.05,cy-s*0.14,0,cx,cy-s*0.12,s*0.26);
+kg.addColorStop(0,‘rgba(100,55,25,0.92)’); kg.addColorStop(0.5,‘rgba(65,32,12,0.88)’); kg.addColorStop(1,‘rgba(40,18,6,0.85)’);
+ctx.fillStyle=kg; ctx.fill();
+// Sheen
+ctx.beginPath(); ctx.ellipse(cx-s*0.07,cy-s*0.14,s*0.09,s*0.022,-0.3,0,Math.PI*2);
+ctx.fillStyle=‘rgba(255,210,160,0.28)’; ctx.fill();
+// Handle
+ctx.beginPath();
+ctx.moveTo(cx+s*0.285,cy-s*0.02);
+ctx.bezierCurveTo(cx+s*0.50,cy-s*0.04,cx+s*0.50,cy+s*0.20,cx+s*0.225,cy+s*0.18);
+ctx.bezierCurveTo(cx+s*0.38,cy+s*0.18,cx+s*0.38,cy-s*0.00,cx+s*0.285,cy-s*0.02);
+ctx.closePath();
+const hg=ctx.createLinearGradient(cx+s*0.28,cy,cx+s*0.50,cy);
+hg.addColorStop(0,‘rgba(255,248,242,0.98)’); hg.addColorStop(0.5,‘rgba(245,232,220,0.95)’); hg.addColorStop(1,‘rgba(225,210,198,0.90)’);
+ctx.fillStyle=hg; ctx.fill();
+ctx.beginPath();
+ctx.moveTo(cx+s*0.285,cy-s*0.02);
+ctx.bezierCurveTo(cx+s*0.50,cy-s*0.04,cx+s*0.50,cy+s*0.20,cx+s*0.225,cy+s*0.18);
+ctx.strokeStyle=‘rgba(255,255,255,0.6)’; ctx.lineWidth=s*0.012; ctx.stroke();
+// Steam
+[[cx-s*0.10,-0.06],[cx+s*0.02,0.07],[cx+s*0.13,-0.05]].forEach(([sx,dx])=>{
+ctx.beginPath(); ctx.moveTo(sx,cy-s*0.18);
+ctx.bezierCurveTo(sx+dx*s,cy-s*0.30,sx-dx*s,cy-s*0.40,sx+dx*s*0.5,cy-s*0.50);
+ctx.strokeStyle=‘rgba(255,255,255,0.50)’; ctx.lineWidth=s*0.020; ctx.lineCap=‘round’; ctx.stroke();
+});
+ctx.restore();
+}
+drawCup(s/2, s*0.53);
+
+// Sparkles
+function sparkle(x,y,r,color){
+ctx.save(); ctx.translate(x,y); ctx.fillStyle=color; ctx.shadowColor=color; ctx.shadowBlur=8;
+ctx.beginPath();
+for(let i=0;i<8;i++){const a=(i/8)*Math.PI*2-Math.PI/8;const rd=i%2===0?r:r*0.30;if(i===0)ctx.moveTo(Math.cos(a)*rd,Math.sin(a)*rd);else ctx.lineTo(Math.cos(a)*rd,Math.sin(a)*rd);}
+ctx.closePath(); ctx.fill(); ctx.restore();
+}
+sparkle(s*0.17,s*0.18,s*0.042,’#F0D070’);
+sparkle(s*0.82,s*0.20,s*0.028,’#F8E090’);
+sparkle(s*0.14,s*0.80,s*0.032,’#E8C060’);
+sparkle(s*0.84,s*0.78,s*0.042,’#F0D070’);
+sparkle(s*0.90,s*0.50,s*0.018,’#FFFFFF’);
+
+// Inject as apple-touch-icon
+const link = document.createElement(‘link’);
+link.rel = ‘apple-touch-icon’;
+link.href = cv.toDataURL(‘image/png’);
+document.head.appendChild(link);
+// Also favicon
+const fav = document.createElement(‘link’);
+fav.rel = ‘icon’; fav.type = ‘image/png’;
+fav.href = cv.toDataURL(‘image/png’);
+document.head.appendChild(fav);
+})();
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400;1,700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 
@@ -658,6 +767,7 @@ canvas { width: 100% !important; height: 100% !important; }
   border-radius: 3px;
 }
 </style>
+
 </head>
 <body>
 
@@ -669,6 +779,7 @@ canvas { width: 100% !important; height: 100% !important; }
 <!-- SCREENS -->
 
 <!-- TODAY -->
+
 <div class="screen active" id="screen-today">
 
   <div class="date-nav">
@@ -700,7 +811,7 @@ canvas { width: 100% !important; height: 100% !important; }
     <textarea class="notes-input" id="notes-input" rows="3" placeholder="How'd it go? What helped?"></textarea>
   </div>
 
-  <button class="log-btn" onclick="saveEntry()">✨ Save Today's Entry</button>
+<button class="log-btn" onclick="saveEntry()">✨ Save Today’s Entry</button>
 
   <div class="savings-card" id="savings-card">
     <div class="savings-title">vs. Large Frappe (660 cal)</div>
@@ -714,6 +825,7 @@ canvas { width: 100% !important; height: 100% !important; }
 </div>
 
 <!-- HISTORY -->
+
 <div class="screen" id="screen-history">
 
   <div class="streak-row">
@@ -764,6 +876,7 @@ canvas { width: 100% !important; height: 100% !important; }
 </div>
 
 <!-- WEIGHT -->
+
 <div class="screen" id="screen-weight">
 
   <div class="bday-projection">
@@ -799,6 +912,7 @@ canvas { width: 100% !important; height: 100% !important; }
 </div>
 
 <!-- STATS -->
+
 <div class="screen" id="screen-stats">
 
   <div class="hero-stat">
@@ -837,6 +951,7 @@ canvas { width: 100% !important; height: 100% !important; }
 </div>
 
 <!-- BOTTOM NAV -->
+
 <div class="bottom-nav">
   <button class="nav-btn active" onclick="showScreen('today')" id="nav-today">
     <span class="icon">☕</span>Today
@@ -1410,5 +1525,6 @@ document.getElementById('reminder-toggle').classList.toggle('on', state.reminder
 document.getElementById('reminder-time').value = state.reminderTime || '14:00';
 if (state.reminderOn) scheduleReminder();
 </script>
+
 </body>
 </html>
